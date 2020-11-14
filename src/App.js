@@ -3,8 +3,6 @@ import Draggable from 'react-draggable';
 import socketIOClient from 'socket.io-client';
 import './App.css';
 
-const ENDPOINT = 'http://localhost:4001';
-
 function App() {
   const [state, setState] = useState(
     {
@@ -15,7 +13,7 @@ function App() {
   );
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT, { transports: ['websocket'] });
+    const socket = socketIOClient(process.env.REACT_APP_SERVER_ENDPOINT, { transports: ['websocket'] });
 
     socket.on('connect', () => {
       setState({ ...state, serverStatus: socket.connected });
@@ -59,7 +57,7 @@ function App() {
       </div>
       <Draggable
         bounds={{
-          top: -2000, left: -2000, right: 0, bottom: 0,
+          top: -2000, left: -2000, right: 500, bottom: 500,
         }}
         grid={[50, 50]}
       >
